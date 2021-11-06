@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,18 +19,19 @@ public class MainActivity extends AppCompatActivity {
     android.widget.Button calculatebmi;
 
     TextView currentheight,currentweight,currentage;
-    ImageView incrementage,incrementweight,decrementage,decrementweight;
+    ImageView incrementage,incrementweight,decrementage,decrementweight,incrementheight,decrementheight;
     SeekBar seekbarforheight;
     RelativeLayout male,female;
 
     int intweight=55;
     int intage = 22;
+    int intheight=170;
     int currentprogress;
     String intprogress="170";
     String typeofuser="0";
     String weight2="55";
     String age2="22";
-
+    String height2="170";
 
 
 
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         currentweight=findViewById(R.id.currentweight);
         currentheight=findViewById(R.id.currentheight);
         incrementage=findViewById(R.id.incrementage);
+        incrementheight=findViewById(R.id.incrementaheight);
+        decrementheight=findViewById(R.id.decrementheight);
         decrementage=findViewById(R.id.decrementage);
         decrementweight=findViewById(R.id.decrementweight);
         incrementweight=findViewById(R.id.incrementweight);
@@ -79,6 +83,34 @@ public class MainActivity extends AppCompatActivity {
         });
         seekbarforheight.setMax(300);
         seekbarforheight.setProgress(170);
+
+
+        decrementheight.setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // the code to execute repeatedly
+                int heightnow = seekbarforheight.getProgress();
+                heightnow=heightnow-1;
+                height2=String.valueOf(heightnow);
+                currentheight.setText(height2);
+
+                seekbarforheight.setProgress(Integer.valueOf(heightnow));
+            }
+        }));
+
+
+
+        incrementheight.setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int heightnow = seekbarforheight.getProgress();
+                heightnow=heightnow+1;
+                height2=String.valueOf(heightnow);
+                currentheight.setText(height2);
+
+                seekbarforheight.setProgress(Integer.valueOf(heightnow));
+            }
+        }));
         seekbarforheight.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -97,42 +129,44 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        incrementage.setOnClickListener(new View.OnClickListener() {
+        incrementage.setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // the code to execute repeatedly
                 intage=intage+1;
                 age2=String.valueOf(intage);
                 currentage.setText(age2);
-
             }
-        });
-        incrementweight.setOnClickListener(new View.OnClickListener() {
+        }));
+        incrementweight.setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // the code to execute repeatedly
                 intweight=intweight+1;
                 weight2=String.valueOf(intweight);
                 currentweight.setText(weight2);
-
             }
-        });
-        decrementweight.setOnClickListener(new View.OnClickListener() {
+        }));
+
+        decrementweight.setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // the code to execute repeatedly
                 intweight=intweight-1;
                 weight2=String.valueOf(intweight);
                 currentweight.setText(weight2);
-
             }
-        });
-        decrementage.setOnClickListener(new View.OnClickListener() {
+        }));
+        decrementage.setOnTouchListener(new RepeatListener(400, 100, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // the code to execute repeatedly
                 intage=intage-1;
                 age2=String.valueOf(intage);
                 currentage.setText(age2);
-
             }
-        });
+        }));
+
 
 
 
